@@ -1,6 +1,6 @@
 # En Masse
 
-Takes a list of file locations and makes it editable. You can then write each change back to their respective files. Edit results from a location or quickfix list en masse.
+Takes a quickfix list and makes it editable. You can then write each change back to their respective files.
 
 ## Unlicence
 
