@@ -1,3 +1,6 @@
+let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.sh")
+
 function! enmasse#EnMasse()
   let list = getqflist()
   let sourceLines = s:GetSourceLinesFromList(list)
@@ -5,12 +8,13 @@ function! enmasse#EnMasse()
 endfunction
 
 function! enmasse#EnMasseWriteCurrentBuffer()
+  let list = b:enMasseList
+  let sourceLines = getline(1, "$")
+  call s:WriteSourceLinesAgainstList(list, sourceLines)
 endfunction
 
 function! s:GetSourceLinesFromList(list)
   let sourceLines = []
-  let file = 0
-  let line = 0
 
   for item in a:list
     let file = bufname(item.bufnr)
@@ -33,4 +37,19 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   goto 1
   call setbufvar(bufnr(''), "enMasseList", a:list)
   set nomodified
+endfunction
+
+function! s:WriteSourceLinesAgainstList(list, sourceLines)
+  let index = 0
+
+  for item in a:list
+    let source = shellescape(a:sourceLines[index])
+    let file = shellescape(bufname(item.bufnr))
+    let line = item.lnum
+
+    let command = printf("%s %s %d %s", s:replaceLineScriptPath, file, line, source)
+    call system(command)
+
+    let index += 1
+  endfor
 endfunction
