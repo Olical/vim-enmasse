@@ -1,6 +1,7 @@
 function! enmasse#EnMasse()
   let list = getqflist()
   let sourceLines = s:GetSourceLinesFromList(list)
+  call s:CreateEnMasseBuffer(list, sourceLines)
 endfunction
 
 function! s:GetSourceLinesFromList(list)
@@ -18,6 +19,14 @@ function! s:GetSourceLinesFromList(list)
 endfunction
 
 function! s:GetLineFromFile(file, line)
-  let command = printf("tail %s -n+%d | head -n1", shellescape(a:file), a:line)
+  let command = printf("sed '%dq;d' %s | awk '{printf $0}'", a:line, shellescape(a:file))
   return system(command)
+endfunction
+
+function! s:CreateEnMasseBuffer(list, sourceLines)
+  new
+  call append(0, a:sourceLines)
+  $delete
+  goto 1
+  call setbufvar(bufnr(''), "enMasseList", a:list)
 endfunction
