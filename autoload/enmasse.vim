@@ -4,6 +4,9 @@ function! enmasse#EnMasse()
   call s:CreateEnMasseBuffer(list, sourceLines)
 endfunction
 
+function! enmasse#EnMasseWriteCurrentBuffer()
+endfunction
+
 function! s:GetSourceLinesFromList(list)
   let sourceLines = []
   let file = 0
@@ -24,9 +27,10 @@ function! s:GetLineFromFile(file, line)
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
-  new
+  new enmasse-list
   call append(0, a:sourceLines)
   $delete
   goto 1
   call setbufvar(bufnr(''), "enMasseList", a:list)
+  set nomodified
 endfunction
