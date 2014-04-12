@@ -34,6 +34,6 @@ perl -i -pe "
     BEGIN {
         \$replacement = \"$replacement\";
     }
-    s/.*/\$replacement/g
+    s/^.*$/\$replacement/g
     if \$. == $2
 " $1

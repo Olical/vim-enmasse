@@ -52,4 +52,6 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
 
     let index += 1
   endfor
+
+  set nomodified
 endfunction
