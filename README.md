@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/wolfy87/vim-enmasse.png?label=ready&title=Ready)](https://waffle.io/wolfy87/vim-enmasse)
 # En Masse
 
 Takes a quickfix list and makes it editable. You can then write each change back to their respective files.
