@@ -61,4 +61,5 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
   endfor
 
   set nomodified
+  checktime
 endfunction
