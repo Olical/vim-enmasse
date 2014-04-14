@@ -10,7 +10,14 @@ endfunction
 function! enmasse#EnMasseWriteCurrentBuffer()
   let list = b:enMasseList
   let sourceLines = getline(1, "$")
-  call s:WriteSourceLinesAgainstList(list, sourceLines)
+
+  if len(list) == len(sourceLines)
+    call s:WriteSourceLinesAgainstList(list, sourceLines)
+  else
+    echohl ErrorMsg
+    echo "EnMasse: Mismatch between buffer lines and quickfix list. Refusing to write."
+    echohl None
+  endif
 endfunction
 
 function! enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()
