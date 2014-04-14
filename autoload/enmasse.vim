@@ -13,6 +13,13 @@ function! enmasse#EnMasseWriteCurrentBuffer()
   call s:WriteSourceLinesAgainstList(list, sourceLines)
 endfunction
 
+function! enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()
+  let list = b:enMasseList
+  let currentLine = line(".")
+  let quickfixItem = list[currentLine - 1]
+  echo quickfixItem.text
+endfunction
+
 function! s:GetSourceLinesFromList(list)
   let sourceLines = []
 
