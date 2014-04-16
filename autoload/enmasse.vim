@@ -21,9 +21,7 @@ function! enmasse#EnMasseWriteCurrentBuffer()
 endfunction
 
 function! enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()
-  let list = b:enMasseList
-  let currentLine = line(".")
-  let quickfixItem = list[currentLine - 1]
+  let quickfixItem = s:GetQuickfixItemForCurrentLine()
   echo quickfixItem.text
 endfunction
 
@@ -51,6 +49,21 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   goto 1
   call setbufvar(bufnr(''), "enMasseList", a:list)
   set nomodified
+  nmap <silent><buffer> <CR> :call <SID>OpenFileForCurrentLine()<CR>
+endfunction
+
+function! s:OpenFileForCurrentLine()
+  let quickfixItem = s:GetQuickfixItemForCurrentLine()
+  let file = bufname(quickfixItem.bufnr)
+  exec printf("new %s", file)
+  call cursor(quickfixItem.lnum, quickfixItem.col)
+endfunction
+
+function! s:GetQuickfixItemForCurrentLine()
+  let list = b:enMasseList
+  let currentLine = line(".")
+  let quickfixItem = list[currentLine - 1]
+  return quickfixItem
 endfunction
 
 function! s:WriteSourceLinesAgainstList(list, sourceLines)
