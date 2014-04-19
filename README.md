@@ -1,6 +1,8 @@
 # En Masse [![Stories in Ready](https://badge.waffle.io/wolfy87/vim-enmasse.png?label=ready&title=Ready)](https://waffle.io/wolfy87/vim-enmasse)
 
-Takes a quickfix list and makes it editable. You can then write each change back to their respective files.
+Takes a quickfix list and makes it editable. You can then write each change back to their respective files using your favourite way of writing files, `:w` or `ZZ`, for example. Fix multiple JSHint issues at once or perform a complex find and replace across your project all within the comfort of Vim.
+
+![Animated demonstration](./images/example.gif)
 
 ## Unlicence
 
