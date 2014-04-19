@@ -4,7 +4,12 @@ let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.py")
 function! enmasse#EnMasse()
   let list = getqflist()
   let sourceLines = s:GetSourceLinesFromList(list)
-  call s:CreateEnMasseBuffer(list, sourceLines)
+
+  if len(list) > 0 && len(sourceLines) > 0
+    call s:CreateEnMasseBuffer(list, sourceLines)
+  else
+    call s:EchoError("No entries to edit.")
+  endif
 endfunction
 
 function! enmasse#EnMasseWriteCurrentBuffer()
@@ -14,15 +19,19 @@ function! enmasse#EnMasseWriteCurrentBuffer()
   if len(list) == len(sourceLines)
     call s:WriteSourceLinesAgainstList(list, sourceLines)
   else
-    echohl ErrorMsg
-    echo "EnMasse: Mismatch between buffer lines and quickfix list. Refusing to write."
-    echohl None
+    call s:EchoError("Mismatch between buffer lines and quickfix list. Refusing to write.")
   endif
 endfunction
 
 function! enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()
   let quickfixItem = s:GetQuickfixItemForCurrentLine()
   echo quickfixItem.text
+endfunction
+
+function! s:EchoError(message)
+    echohl ErrorMsg
+    echo "EnMasse:" a:message
+    echohl None
 endfunction
 
 function! s:GetSourceLinesFromList(list)
