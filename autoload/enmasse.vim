@@ -1,5 +1,5 @@
 let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.sh")
+let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.py")
 
 function! enmasse#EnMasse()
   let list = getqflist()
@@ -70,9 +70,9 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
   let index = 0
 
   for item in a:list
-    let source = shellescape(a:sourceLines[index])
     let file = shellescape(bufname(item.bufnr))
-    let line = item.lnum
+    let line = item.lnum - 1
+    let source = shellescape(a:sourceLines[index])
 
     let command = printf("%s %s %d %s", s:replaceLineScriptPath, file, line, source)
     call system(command)
