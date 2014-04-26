@@ -16,7 +16,7 @@ function! enmasse#EnMasseWriteCurrentBuffer()
   let list = b:enMasseList
   let sourceLines = getline(1, "$")
 
-  if len(list) == len(sourceLines)
+  if len(list) ==# len(sourceLines)
     call s:WriteSourceLinesAgainstList(list, sourceLines)
   else
     call s:EchoError("Mismatch between buffer lines and quickfix list. Refusing to write.")
