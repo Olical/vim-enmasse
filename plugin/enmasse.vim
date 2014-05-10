@@ -1,4 +1,4 @@
 command! EnMasse :call enmasse#EnMasse()
 
-autocmd BufWriteCmd enmasse-list call enmasse#EnMasseWriteCurrentBuffer()
-autocmd CursorMoved enmasse-list call enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()
+autocmd BufWriteCmd __EnMasse__ call enmasse#EnMasseWriteCurrentBuffer()
+autocmd CursorMoved __EnMasse__ call enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()

@@ -52,7 +52,8 @@ function! s:GetLineFromFile(file, line)
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
-  new enmasse-list
+  new __EnMasse__
+  setlocal buftype=acwrite
   call append(0, a:sourceLines)
   $delete
   goto 1
