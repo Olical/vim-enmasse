@@ -25,7 +25,14 @@ endfunction
 
 function! enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()
   let quickfixItem = s:GetQuickfixItemForCurrentLine()
-  echo quickfixItem.text
+  call s:EchoTruncated(quickfixItem.text)
+endfunction
+
+function! s:EchoTruncated(msg)
+  let saved=&shortmess
+  set shortmess+=T
+  exe "norm :echomsg a:msg\n"
+  let &shortmess=saved
 endfunction
 
 function! s:EchoError(message)
