@@ -1,7 +1,7 @@
 let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.py")
 
-function! enmasse#EnMasse()
+function! enmasse#Open()
   let list = getqflist()
   let sourceLines = s:GetSourceLinesFromList(list)
 
@@ -12,7 +12,7 @@ function! enmasse#EnMasse()
   endif
 endfunction
 
-function! enmasse#EnMasseWriteCurrentBuffer()
+function! enmasse#WriteCurrentBuffer()
   let list = b:enMasseList
   let sourceLines = getline(1, "$")
 
@@ -23,7 +23,7 @@ function! enmasse#EnMasseWriteCurrentBuffer()
   endif
 endfunction
 
-function! enmasse#EnMasseDisplayQuickfixEntryForCurrentLine()
+function! enmasse#DisplayQuickfixEntryForCurrentLine()
   let quickfixItem = s:GetQuickfixItemForCurrentLine()
   call s:EchoTruncated(quickfixItem.text)
 endfunction
