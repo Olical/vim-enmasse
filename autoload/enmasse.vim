@@ -2,7 +2,7 @@ let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.py")
 
 function! enmasse#Open()
-  let list = getqflist()
+  let list = s:GetQuickfixList()
   let sourceLines = s:GetSourceLinesFromList(list)
 
   if len(list) > 0 && len(sourceLines) > 0
@@ -39,6 +39,33 @@ function! s:EchoError(message)
     echohl ErrorMsg
     echo "EnMasse:" a:message
     echohl None
+endfunction
+
+function! s:GetQuickfixList()
+  let list = getqflist()
+  let uniqueList = []
+
+  for item in list
+    let existingItem = s:GetMatchingLineFromQuickfix(item, uniqueList)
+
+    if has_key(existingItem, "bufnr")
+      let existingItem.text = join([existingItem.text, item.text], " | ")
+    else
+      call add(uniqueList, item)
+    endif
+  endfor
+
+  return uniqueList
+endfunction
+
+function! s:GetMatchingLineFromQuickfix(target, list)
+  for item in a:list
+    if a:target.bufnr ==# item.bufnr && a:target.lnum ==# item.lnum
+      return item
+    endif
+  endfor
+
+  return {}
 endfunction
 
 function! s:GetSourceLinesFromList(list)
