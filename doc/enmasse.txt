@@ -13,9 +13,9 @@
 Introduction                                       *enmasse* *enmasse-introduction*
 
 Takes a |quickfix| list and makes it editable. You can then write each change
-back to their respective files using your favourite way of writing files, |:w| or
-|ZZ|, for example. Fix multiple JSHint issues at once or perform a complex find
-and replace across your project all within the comfort of Vim.
+back to their respective files using your favourite way of writing files, |:w|
+or |ZZ|, for example. Fix multiple linting issues at once or perform a complex
+find and replace across your project all within the comfort of Vim.
 
 ===============================================================================
 Usage                                                             *enmasse-usage*
@@ -26,11 +26,13 @@ corresponding to a line in the quickfix list.
 
 You can then edit each line in any way you want. When done just write this
 magical buffer and it will update each line in their corresponding files. Do
-not delete any lines, that will not work and EnMasse will actually prevent you
-from writing if you've added or removed any lines.
+not delete or create any new lines, that will not work, EnMasse will prevent
+you from writing if it spots a discrepancy because it no longer knows which
+lines should go where.
 
 Pressing enter on a line will open that actual line in another buffer so you
-can get the context of what you're about to edit.
+can get the context of what you're about to edit. This mimics the functionality
+of the quickfix list.
 
 ===============================================================================
 Quickfix hints                                           *enmasse-quickfix-hints*
