@@ -12,6 +12,10 @@ function! enmasse#EnMasse()
   endif
 endfunction
 
+function! enmasse#GetVersion()
+  return "1.0.0"
+endfunction
+
 function! enmasse#EnMasseWriteCurrentBuffer()
   let list = b:enMasseList
   let sourceLines = getline(1, "$")
