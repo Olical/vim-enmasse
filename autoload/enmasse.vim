@@ -1,6 +1,3 @@
-let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.py")
-
 function! enmasse#Open()
   let list = s:GetQuickfixList()
   let sourceLines = s:GetSourceLinesFromList(list)
@@ -59,7 +56,17 @@ function! s:GetQuickfixList()
     endif
   endfor
 
+  call sort(uniqueList, "s:SortByBufferAndLine")
+
   return uniqueList
+endfunction
+
+function! s:SortByBufferAndLine(i1, i2)
+  if a:i1.bufnr > a:i2.bufnr || (a:i1.bufnr ==# a:i2.bufnr && a:i1.lnum > a:i2.lnum)
+    return 1
+  else
+    return -1
+  endif
 endfunction
 
 function! s:GetMatchingLineFromQuickfix(target, list)
@@ -85,8 +92,8 @@ function! s:GetSourceLinesFromList(list)
 endfunction
 
 function! s:GetLineFromFile(file, line)
-  let command = printf("sed '%dq;d' %s | awk '{printf $0}'", a:line, shellescape(a:file))
-  return system(command)
+  let lines = readfile(a:file, "b")
+  return lines[a:line - 1]
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
@@ -118,13 +125,11 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
   let index = 0
 
   for item in a:list
-    let file = shellescape(bufname(item.bufnr))
     let line = item.lnum - 1
-    let source = shellescape(a:sourceLines[index])
-
-    let command = printf("%s %s %d %s", s:replaceLineScriptPath, file, line, source)
-    call system(command)
-
+    let path = bufname(item.bufnr)
+    let lines = readfile(path, "b")
+    let lines[line] = a:sourceLines[index]
+    call writefile(lines, path, "b")
     let index += 1
   endfor
 

@@ -18,10 +18,6 @@ As you move your cursor through the lines the matching quickfix entry message wi
 
 If there were multiple quickfix entries for a single line (missing semi-colon and unused variable, for example) then their messages will be merged into one in the hint. If the message is too long to fit on one line it will be truncated. It's either that or you have a "press enter to continue" prompt pop up every time the echo wraps onto the next line. Not cool. So truncation is the better alternative, even if you lose a bit of information sometimes.
 
-## Dependencies
-
-This executes a small Python script to actually replace the lines, so you're going to need some form of Python set up. I also have no idea if it will work on Windows, Linux and Mac should be fine.
-
 ## Author
 
 [Oliver Caldwell][] / [@OliverCaldwell][]
