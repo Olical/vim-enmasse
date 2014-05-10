@@ -29,10 +29,8 @@ magical buffer and it will update each line in their corresponding files. Do
 not delete any lines, that will not work and EnMasse will actually prevent you
 from writing if you've added or removed any lines.
 
-The biggest caveat right now is that each line will be written one after the
-other, even if the same line shows up in the quickfix list twice. So you could
-see the same line multiple times in the EnMasse buffer, but only the last one
-will actually make it's way into the finished file.
+Pressing enter on a line will open that actual line in another buffer so you
+can get the context of what you're about to edit.
 
 ===============================================================================
 Quickfix hints                                           *enmasse-quickfix-hints*
@@ -41,6 +39,13 @@ As you move your cursor through the lines the matching quickfix entry message
 will be echoed at the bottom of the screen. So if you're scrolling through a
 buffer created from a JSHint quickfix list, you'll be provided with the
 corresponding JSHint message for each line at the bottom of the window.
+
+If there were multiple quickfix entries for a single line (missing semi-colon
+and unused variable, for example) then their messages will be merged into one
+in the hint. If the message is too long to fit on one line it will be
+truncated. It's either that or you have a "press enter to continue" prompt pop
+up every time the echo wraps onto the next line. Not cool. So truncation is the
+better alternative, even if you lose a bit of information sometimes.
 
 ===============================================================================
 Author                                                           *enmasse-author*
