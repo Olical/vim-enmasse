@@ -1,6 +1,3 @@
-let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-let s:replaceLineScriptPath = simplify(s:path . "/../script/replace-line.py")
-
 function! enmasse#Open()
   let list = s:GetQuickfixList()
   let sourceLines = s:GetSourceLinesFromList(list)
@@ -95,7 +92,7 @@ function! s:GetSourceLinesFromList(list)
 endfunction
 
 function! s:GetLineFromFile(file, line)
-  let lines = readfile(a:file)
+  let lines = readfile(a:file, "b")
   return lines[a:line - 1]
 endfunction
 
@@ -128,13 +125,11 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
   let index = 0
 
   for item in a:list
-    let file = shellescape(bufname(item.bufnr))
     let line = item.lnum - 1
-    let source = shellescape(a:sourceLines[index])
-
-    let command = printf("%s %s %d %s", s:replaceLineScriptPath, file, line, source)
-    call system(command)
-
+    let path = bufname(item.bufnr)
+    let lines = readfile(path, "b")
+    let lines[line] = a:sourceLines[index]
+    call writefile(lines, path, "b")
     let index += 1
   endfor
 
