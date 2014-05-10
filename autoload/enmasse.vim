@@ -59,7 +59,17 @@ function! s:GetQuickfixList()
     endif
   endfor
 
+  call sort(uniqueList, "s:SortByBufferAndLine")
+
   return uniqueList
+endfunction
+
+function! s:SortByBufferAndLine(i1, i2)
+  if a:i1.bufnr > a:i2.bufnr || (a:i1.bufnr ==# a:i2.bufnr && a:i1.lnum > a:i2.lnum)
+    return 1
+  else
+    return -1
+  endif
 endfunction
 
 function! s:GetMatchingLineFromQuickfix(target, list)
