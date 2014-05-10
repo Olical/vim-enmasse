@@ -95,8 +95,8 @@ function! s:GetSourceLinesFromList(list)
 endfunction
 
 function! s:GetLineFromFile(file, line)
-  let command = printf("sed '%dq;d' %s | awk '{printf $0}'", a:line, shellescape(a:file))
-  return system(command)
+  let lines = readfile(a:file)
+  return lines[a:line - 1]
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
