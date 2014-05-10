@@ -87,7 +87,7 @@ endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
   new __EnMasse__
-  setlocal buftype=acwrite
+  set buftype=acwrite
   call append(0, a:sourceLines)
   $delete
   goto 1
