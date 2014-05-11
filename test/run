@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [[ ! -d test/vader ]]; then
+    git clone https://github.com/junegunn/vader.vim.git test/vader
+else
+    pushd test/vader
+    git pull
+    popd
+fi
+
+vim -Nu <(cat << VIMRC
+filetype off
+set rtp+=test/vader
+set rtp+=.
+set rtp+=after
+filetype plugin indent on
+VIMRC) -c 'Vader! test/*.vader' > /dev/null
