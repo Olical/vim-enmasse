@@ -98,7 +98,9 @@ endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
   new __EnMasse__
-  set buftype=acwrite
+  setlocal buftype=acwrite
+  setlocal bufhidden=hide
+  setlocal noswapfile
   call append(0, a:sourceLines)
   $delete
   goto 1
