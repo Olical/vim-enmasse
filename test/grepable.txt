@@ -1,0 +1,4 @@
+This is an example file.
+It should be loaded into the quickfix list.
+Then you can run :EnMasse
+And edit that quickfix list.
