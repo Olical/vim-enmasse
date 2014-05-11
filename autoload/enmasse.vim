@@ -101,12 +101,12 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
-  call append(0, a:sourceLines)
-  $delete
-  goto 1
   call setbufvar(bufnr(''), "enMasseList", a:list)
-  set nomodified
+  normal ggdG
+  call append(0, a:sourceLines)
+  normal ddgg
   nmap <silent><buffer> <CR> :call <SID>OpenFileForCurrentLine()<CR>
+  set nomodified
 endfunction
 
 function! s:OpenFileForCurrentLine()
