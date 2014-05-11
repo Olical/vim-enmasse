@@ -102,9 +102,8 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   setlocal bufhidden=hide
   setlocal noswapfile
   call setbufvar(bufnr(''), "enMasseList", a:list)
-  normal ggdG
   call append(0, a:sourceLines)
-  normal ddgg
+  normal dGgg
   nmap <silent><buffer> <CR> :call <SID>OpenFileForCurrentLine()<CR>
   set nomodified
 endfunction
