@@ -26,7 +26,8 @@ Execute (when the cursor is moved, the hint updates):
   AssertEqual lines[3], result
 
 Execute (when lines have been joined, the hint contains both of the results seperated with a pipe):
-  silent grepadd! loaded test/grepable.txt
+  silent grep! "Dupe!" test/grepable.txt
+  silent grepadd! "Dupe!" test/grepable.txt
 
   redir => messages
   EnMasse
@@ -35,7 +36,7 @@ Execute (when lines have been joined, the hint contains both of the results sepe
   quit
   let result = get(split(messages, "\n"), -1, "")
 
-  AssertEqual join([lines[1], lines[1]], " | "), result
+  AssertEqual join([lines[5], lines[5]], " | "), result
 
 Execute (when a line is too long it becomes truncated):
   silent grep! "way too long" test/grepable.txt
