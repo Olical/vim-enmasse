@@ -2,8 +2,6 @@ Before (set up regular expression):
   let versionRegExp = '\v\d+\.\d+\.\d+'
 
 Execute (can print the version number with the command):
-  let messages = ""
-
   redir => messages
   EnMasseVersion
   redir END
