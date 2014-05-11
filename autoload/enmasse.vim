@@ -106,6 +106,7 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   normal dGgg
   nmap <silent><buffer> <CR> :call <SID>OpenFileForCurrentLine()<CR>
   set nomodified
+  call enmasse#DisplayQuickfixEntryForCurrentLine()
 endfunction
 
 function! s:OpenFileForCurrentLine()
