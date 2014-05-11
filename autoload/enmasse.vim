@@ -37,9 +37,9 @@ function! s:EchoTruncated(msg)
 endfunction
 
 function! s:EchoError(message)
-    echohl ErrorMsg
-    echo "EnMasse:" a:message
-    echohl None
+  echohl ErrorMsg
+  echo "EnMasse:" a:message
+  echohl None
 endfunction
 
 function! s:GetQuickfixList()
