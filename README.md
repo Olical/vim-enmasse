@@ -1,4 +1,4 @@
-# En Masse [![Stories in Ready](https://badge.waffle.io/wolfy87/vim-enmasse.png?label=ready&title=Ready)](https://waffle.io/wolfy87/vim-enmasse)
+# En Masse [![Build Status][travis-image]][travis] [![Stories in Ready][waffle-image]][waffle]
 
 Takes a quickfix list and makes it editable. You can then write each change back to their respective files using your favourite way of writing files, `:w` or `ZZ`, for example. Fix multiple [JSHint][] issues at once or perform a complex find and replace across your project all within the comfort of Vim.
 
@@ -47,3 +47,7 @@ For more information, please refer to <http://unlicense.org/>
 [Oliver Caldwell]: http://oli.me.uk/
 [@OliverCaldwell]: https://twitter.com/OliverCaldwell
 [docs]: https://github.com/Wolfy87/vim-enmasse/blob/master/doc/enmasse.txt
+[travis-image]: https://travis-ci.org/Wolfy87/vim-enmasse.svg?branch=master
+[travis]: https://travis-ci.org/Wolfy87/vim-enmasse
+[waffle-image]: https://badge.waffle.io/wolfy87/vim-enmasse.png?label=ready&title=Ready
+[waffle]: https://waffle.io/wolfy87/vim-enmasse
