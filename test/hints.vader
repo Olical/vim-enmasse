@@ -36,3 +36,16 @@ Execute (when lines have been joined, the hint contains both of the results sepe
   let result = get(split(messages, "\n"), -1, "")
 
   AssertEqual join([lines[1], lines[1]], " | "), result
+
+Execute (when a line is too long it becomes truncated):
+  silent grep! "way too long" test/grepable.txt
+
+  redir => messages
+  EnMasse
+  redir END
+
+  quit
+  let result = get(split(messages, "\n"), -1, "")
+
+  AssertNotEqual lines[4], result
+  Assert result =~# '\vAnd.*\.\.\..*vitae.'
