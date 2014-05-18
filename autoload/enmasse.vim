@@ -112,7 +112,7 @@ endfunction
 function! s:OpenFileForCurrentLine()
   let quickfixItem = s:GetQuickfixItemForCurrentLine()
   let file = bufname(quickfixItem.bufnr)
-  exec printf("new %s", file)
+  execute printf("new %s", file)
   call cursor(quickfixItem.lnum, quickfixItem.col)
 endfunction
 
