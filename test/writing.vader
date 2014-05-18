@@ -1,13 +1,10 @@
 Before (define test data and setup EnMasse):
   let original = ["Hello, World!", "This is EnMasse.", "EnMasse is useful."]
   let expected = ["Hello, World!", "This is EnMasse, a Vim plugin.", "EnMasse is handy."]
-  let filePath = "test/writeable.txt"
+  let filePath = tempname()
   call writefile(original, filePath)
   execute "silent grep! EnMasse " . filePath
   EnMasse
-
-After (remove the test file):
-  call delete(filePath)
 
 Execute (editing and writing in an EnMasse buffer changes the file):
   %s/is EnMasse/is EnMasse, a Vim plugin/
