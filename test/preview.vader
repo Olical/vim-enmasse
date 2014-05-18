@@ -1,0 +1,13 @@
+Before (set up an EnMasse buffer):
+  let lines = readfile("test/grepable.txt", "b")
+  silent grep! quickfix test/grepable.txt
+  EnMasse
+
+Execute (hitting enter on a line opens it in the preview window):
+  let before = getline(".")
+  execute "normal \<CR>\<C-W>k"
+  let after = getline(".")
+  let bufferName = expand("%")
+  AssertEqual "test/grepable.txt", bufferName
+  AssertEqual before, after
+  pclose
