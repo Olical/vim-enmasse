@@ -42,3 +42,14 @@ Execute (doesn't write if no lines have changed):
   write
   let after = getftime(filePath)
   AssertEqual before, after
+
+Execute (changing a file that you have open will prompt for a reload):
+  execute "split " . filePath
+  execute "normal! \<C-W>k"
+  %s/is EnMasse/is EnMasse, a Vim plugin/
+  %s/useful/handy/
+  write
+  execute "normal! l\<CR>\<C-W>j"
+  let bufferLines = getline(1, "$")
+  let actual = readfile(filePath)
+  AssertEqual actual, bufferLines
