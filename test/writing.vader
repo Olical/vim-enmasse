@@ -6,8 +6,9 @@ Before (define test data and setup EnMasse):
   execute "silent grep! EnMasse " . filePath
   EnMasse
 
-After (remove the temporary file):
+After (remove the temporary file and close the previous EnMasse buffer):
   call delete(filePath)
+  quit!
 
 Execute (editing and writing in an EnMasse buffer changes the file):
   %s/is EnMasse/is EnMasse, a Vim plugin/
