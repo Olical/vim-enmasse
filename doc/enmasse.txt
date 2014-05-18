@@ -30,9 +30,9 @@ not delete or create any new lines, that will not work, EnMasse will prevent
 you from writing if it spots a discrepancy because it no longer knows which
 lines should go where.
 
-Pressing enter on a line will open that actual line in another buffer so you
-can get the context of what you're about to edit. This mimics the functionality
-of the quickfix list.
+Pressing enter on a line will open the preview window to that line so you can
+get the context of what you're about to edit. This mimics the functionality of
+the quickfix list.
 
 ===============================================================================
 Quickfix hints                                           *enmasse-quickfix-hints*

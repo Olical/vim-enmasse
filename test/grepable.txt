@@ -1,0 +1,6 @@
+This is an example file.
+It should be loaded into the quickfix list.
+Then you can run :EnMasse
+And edit that quickfix list.
+And this line is way too long so it will truncated. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et ornare libero, quis vulputate odio. In luctus id velit sed gravida. Cras turpis nibh, luctus a lorem non, sollicitudin auctor justo. Vivamus tristique dolor a lectus gravida molestie. Nunc varius mi ante, vitae bibendum quam ultricies vitae.
+Dupe!

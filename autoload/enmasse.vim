@@ -37,9 +37,9 @@ function! s:EchoTruncated(msg)
 endfunction
 
 function! s:EchoError(message)
-    echohl ErrorMsg
-    echo "EnMasse:" a:message
-    echohl None
+  echohl ErrorMsg
+  echo "EnMasse:" a:message
+  echohl None
 endfunction
 
 function! s:GetQuickfixList()
@@ -101,19 +101,18 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
-  call append(0, a:sourceLines)
-  $delete
-  goto 1
   call setbufvar(bufnr(''), "enMasseList", a:list)
+  call append(0, a:sourceLines)
+  normal dGgg
+  nmap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
-  nmap <silent><buffer> <CR> :call <SID>OpenFileForCurrentLine()<CR>
+  call enmasse#DisplayQuickfixEntryForCurrentLine()
 endfunction
 
-function! s:OpenFileForCurrentLine()
+function! s:OpenLineInPreviewWindow()
   let quickfixItem = s:GetQuickfixItemForCurrentLine()
   let file = bufname(quickfixItem.bufnr)
-  exec printf("new %s", file)
-  call cursor(quickfixItem.lnum, quickfixItem.col)
+  execute printf("pedit +%d %s", quickfixItem.lnum, file)
 endfunction
 
 function! s:GetQuickfixItemForCurrentLine()
