@@ -10,7 +10,6 @@ fi
 
 vim -Nu <(cat << VIMRC
 filetype off
-set hidden
 set rtp+=.
 set rtp+=test/vader
 filetype plugin indent on

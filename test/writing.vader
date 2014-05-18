@@ -2,6 +2,7 @@ Before (define test data and setup EnMasse):
   let original = ["Hello, World!", "This is EnMasse.", "EnMasse is useful."]
   let expected = ["Hello, World!", "This is EnMasse, a Vim plugin.", "EnMasse is handy."]
   let filePath = tempname()
+  set nomodified
   call writefile(original, filePath)
   execute "silent grep! EnMasse " . filePath
   EnMasse
