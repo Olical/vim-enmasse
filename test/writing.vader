@@ -1,5 +1,4 @@
 Before (define test data and setup EnMasse):
-  setlocal hidden
   let original = ["Hello, World!", "This is EnMasse.", "EnMasse is useful."]
   let expected = ["Hello, World!", "This is EnMasse, a Vim plugin.", "EnMasse is handy."]
   let filePath = tempname()
