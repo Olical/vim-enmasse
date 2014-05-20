@@ -54,3 +54,12 @@ Execute (changing a file that you have open will prompt for a reload):
   let bufferLines = getline(1, "$")
   let actual = readfile(filePath)
   AssertEqual actual, bufferLines
+
+Execute (multiple changes to one file are written in one batched write):
+  %s/is EnMasse/is EnMasse, a Vim plugin/
+  %s/useful/handy/
+  let writes = 0
+  let actual = readfile(filePath)
+  autocmd FileWritePost * let writes += 1
+  write
+  AssertEqual 1, writes

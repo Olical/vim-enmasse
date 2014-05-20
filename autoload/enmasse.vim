@@ -123,17 +123,34 @@ function! s:GetQuickfixItemForCurrentLine()
 endfunction
 
 function! s:WriteSourceLinesAgainstList(list, sourceLines)
-  let index = 0
+  let toWrite = s:MergeChangesUnderPaths(a:list, a:sourceLines)
 
-  for item in a:list
-    let line = item.lnum - 1
-    let path = bufname(item.bufnr)
-    let lines = readfile(path, "b")
-    let lines[line] = a:sourceLines[index]
-    call writefile(lines, path, "b")
-    let index += 1
+  for [filePath, fileChanges] in items(toWrite)
+    let lines = readfile(filePath, "b")
+
+    for lineChange in fileChanges
+      let lines[lineChange.line] = lineChange.change
+    endfor
+
+    execute "silent doautocmd FileWritePre " . filePath
+    call writefile(lines, filePath, "b")
+    execute "silent doautocmd FileWritePost " . filePath
   endfor
 
   set nomodified
   checktime
+endfunction
+
+function! s:MergeChangesUnderPaths(list, sourceLines)
+  let index = 0
+  let paths = {}
+
+  for item in a:list
+    let path = bufname(item.bufnr)
+    let changes = get(paths, path, [])
+    let paths[path] = add(changes, {"change": a:sourceLines[index], "line": item.lnum - 1})
+    let index += 1
+  endfor
+
+  return paths
 endfunction
