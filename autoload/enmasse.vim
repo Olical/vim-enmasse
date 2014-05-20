@@ -10,7 +10,7 @@ function! enmasse#Open()
 endfunction
 
 function! enmasse#GetVersion()
-  return "1.0.0"
+  return "1.1.0"
 endfunction
 
 function! enmasse#WriteCurrentBuffer()
@@ -37,9 +37,9 @@ function! s:EchoTruncated(msg)
 endfunction
 
 function! s:EchoError(message)
-    echohl ErrorMsg
-    echo "EnMasse:" a:message
-    echohl None
+  echohl ErrorMsg
+  echo "EnMasse:" a:message
+  echohl None
 endfunction
 
 function! s:GetQuickfixList()
@@ -98,20 +98,21 @@ endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
   new __EnMasse__
-  set buftype=acwrite
-  call append(0, a:sourceLines)
-  $delete
-  goto 1
+  setlocal buftype=acwrite
+  setlocal bufhidden=hide
+  setlocal noswapfile
   call setbufvar(bufnr(''), "enMasseList", a:list)
+  call append(0, a:sourceLines)
+  normal dGgg
+  nmap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
-  nmap <silent><buffer> <CR> :call <SID>OpenFileForCurrentLine()<CR>
+  call enmasse#DisplayQuickfixEntryForCurrentLine()
 endfunction
 
-function! s:OpenFileForCurrentLine()
+function! s:OpenLineInPreviewWindow()
   let quickfixItem = s:GetQuickfixItemForCurrentLine()
   let file = bufname(quickfixItem.bufnr)
-  exec printf("new %s", file)
-  call cursor(quickfixItem.lnum, quickfixItem.col)
+  execute printf("pedit +%d %s", quickfixItem.lnum, file)
 endfunction
 
 function! s:GetQuickfixItemForCurrentLine()
@@ -122,17 +123,34 @@ function! s:GetQuickfixItemForCurrentLine()
 endfunction
 
 function! s:WriteSourceLinesAgainstList(list, sourceLines)
-  let index = 0
+  let toWrite = s:MergeChangesUnderPaths(a:list, a:sourceLines)
 
-  for item in a:list
-    let line = item.lnum - 1
-    let path = bufname(item.bufnr)
-    let lines = readfile(path, "b")
-    let lines[line] = a:sourceLines[index]
-    call writefile(lines, path, "b")
-    let index += 1
+  for [filePath, fileChanges] in items(toWrite)
+    let lines = readfile(filePath, "b")
+
+    for lineChange in fileChanges
+      let lines[lineChange.line] = lineChange.change
+    endfor
+
+    execute "silent doautocmd FileWritePre " . filePath
+    call writefile(lines, filePath, "b")
+    execute "silent doautocmd FileWritePost " . filePath
   endfor
 
   set nomodified
   checktime
+endfunction
+
+function! s:MergeChangesUnderPaths(list, sourceLines)
+  let index = 0
+  let paths = {}
+
+  for item in a:list
+    let path = bufname(item.bufnr)
+    let changes = get(paths, path, [])
+    let paths[path] = add(changes, {"change": a:sourceLines[index], "line": item.lnum - 1})
+    let index += 1
+  endfor
+
+  return paths
 endfunction

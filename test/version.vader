@@ -1,0 +1,14 @@
+Before (set up regular expression):
+  let versionRegExp = '\v\d+\.\d+\.\d+'
+
+Execute (can print the version number with the command):
+  redir => messages
+  EnMasseVersion
+  redir END
+
+  let result = get(split(messages, "\n"), -1, "")
+
+  Assert result =~# versionRegExp
+
+Execute (can get the version number with the function):
+  Assert enmasse#GetVersion() =~# versionRegExp

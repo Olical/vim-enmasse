@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-command! EnMasse :call enmasse#EnMasse()
-command! EnMasseVersion :echo enmasse#GetVersion()
-=======
-command! EnMasse :call enmasse#Open()
->>>>>>> feature/better-writing
-
-autocmd BufWriteCmd __EnMasse__ call enmasse#WriteCurrentBuffer()
-autocmd CursorMoved __EnMasse__ call enmasse#DisplayQuickfixEntryForCurrentLine()

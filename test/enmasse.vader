@@ -1,0 +1,40 @@
+Before (read the example grepable file and grep for quickfix):
+  let lines = readfile("test/grepable.txt", "b")
+  silent grep! quickfix test/grepable.txt
+
+Execute (can't call :EnMasse without a quickfix list):
+  call setqflist([])
+
+  redir => messages
+  EnMasse
+  redir END
+
+  let result = get(split(messages, "\n"), -1, "")
+
+  AssertEqual "EnMasse: No entries to edit.", result
+
+Execute (:EnMasse with a quickfix list creates a buffer):
+  EnMasse
+  let name = bufname("%")
+  quit
+
+  AssertEqual "__EnMasse__", name
+
+Execute (the buffer contains the correct line from the quickfix list):
+  EnMasse
+  let firstLine = getline("1")
+  quit
+
+  AssertEqual lines[1], firstLine
+
+Execute (duplicate quickfix lines are joined together):
+  silent grepadd! loaded test/grepable.txt
+  EnMasse
+  let firstLine = getline("1")
+  let secondLine = getline("2")
+  let lineCount = line("$")
+  quit
+
+  AssertEqual lines[1], firstLine
+  AssertEqual lines[3], secondLine
+  AssertEqual 2, lineCount

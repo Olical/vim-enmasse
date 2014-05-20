@@ -1,0 +1,65 @@
+Before (define test data and setup EnMasse):
+  let original = ["Hello, World!", "This is EnMasse.", "EnMasse is useful."]
+  let expected = ["Hello, World!", "This is EnMasse, a Vim plugin.", "EnMasse is handy."]
+  let filePath = tempname()
+  set nomodified
+  call writefile(original, filePath)
+  execute "silent grep! EnMasse " . filePath
+  EnMasse
+
+After (remove the temporary file and close the previous EnMasse buffer):
+  call delete(filePath)
+  quit!
+
+Execute (editing and writing in an EnMasse buffer changes the file):
+  %s/is EnMasse/is EnMasse, a Vim plugin/
+  %s/useful/handy/
+  write
+  let actual = readfile(filePath)
+  AssertEqual expected, actual
+
+Execute (will not let you write if a line is deleted):
+  normal dd
+  redir => messages
+  write
+  redir END
+  let actual = readfile(filePath)
+  let latestMessage = get(split(messages, "\n"), -1, "")
+  AssertEqual original, actual
+  AssertEqual "EnMasse: Mismatch between buffer lines and quickfix list. Refusing to write.", latestMessage
+
+Execute (will not let you write if a line is added):
+  normal o
+  redir => messages
+  write
+  redir END
+  let actual = readfile(filePath)
+  let latestMessage = get(split(messages, "\n"), -1, "")
+  AssertEqual original, actual
+  AssertEqual "EnMasse: Mismatch between buffer lines and quickfix list. Refusing to write.", latestMessage
+
+Execute (doesn't write if no lines have changed):
+  let before = getftime(filePath)
+  write
+  let after = getftime(filePath)
+  AssertEqual before, after
+
+Execute (changing a file that you have open will prompt for a reload):
+  execute "split " . filePath
+  execute "normal! \<C-W>k"
+  %s/is EnMasse/is EnMasse, a Vim plugin/
+  %s/useful/handy/
+  write
+  execute "normal! l\<CR>\<C-W>j"
+  let bufferLines = getline(1, "$")
+  let actual = readfile(filePath)
+  AssertEqual actual, bufferLines
+
+Execute (multiple changes to one file are written in one batched write):
+  %s/is EnMasse/is EnMasse, a Vim plugin/
+  %s/useful/handy/
+  let writes = 0
+  let actual = readfile(filePath)
+  autocmd FileWritePost * let writes += 1
+  write
+  AssertEqual 1, writes
