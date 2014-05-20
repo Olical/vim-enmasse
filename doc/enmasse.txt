@@ -35,6 +35,14 @@ get the context of what you're about to edit. This mimics the functionality of
 the quickfix list.
 
 ===============================================================================
+Autocommands                                               *enmasse-autocommands*
+
+When writing changes to files, EnMasse will batch writes together. That means
+that if you have multiple changes for one file, only one write will take place.
+With this in mind, EnMasse will fire |FileWritePre| and |FileWritePost| for
+each file that is changed.
+
+===============================================================================
 Quickfix hints                                           *enmasse-quickfix-hints*
 
 As you move your cursor through the lines the matching quickfix entry message

@@ -130,7 +130,9 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
     let path = bufname(item.bufnr)
     let lines = readfile(path, "b")
     let lines[line] = a:sourceLines[index]
+    execute "doautocmd FileWritePre " . path
     call writefile(lines, path, "b")
+    execute "doautocmd FileWritePost " . path
     let index += 1
   endfor
 
