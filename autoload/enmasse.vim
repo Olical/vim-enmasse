@@ -132,9 +132,9 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
       let lines[lineChange.line] = lineChange.change
     endfor
 
-    execute "doautocmd FileWritePre " . filePath
+    execute "silent doautocmd FileWritePre " . filePath
     call writefile(lines, filePath, "b")
-    execute "doautocmd FileWritePost " . filePath
+    execute "silent doautocmd FileWritePost " . filePath
   endfor
 
   set nomodified
