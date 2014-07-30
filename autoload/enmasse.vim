@@ -10,7 +10,7 @@ function! enmasse#Open()
 endfunction
 
 function! enmasse#GetVersion()
-  return "1.1.0"
+  return "1.1.1"
 endfunction
 
 function! enmasse#WriteCurrentBuffer()
