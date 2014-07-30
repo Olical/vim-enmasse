@@ -1,4 +1,4 @@
 language: vim
 
 script: |
-  ./test/run
+  ./test/run travis
