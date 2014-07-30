@@ -10,8 +10,7 @@ fi
 
 vim -Nu <(cat << VIMRC
 filetype off
-set rtp+=test/vader
 set rtp+=.
-set rtp+=after
+set rtp+=test/vader
 filetype plugin indent on
-VIMRC) -c 'Vader! test/*' > /dev/null
+VIMRC) -c 'Vader! test/*.vader' > /dev/null
