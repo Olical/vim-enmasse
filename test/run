@@ -8,9 +8,22 @@ else
     popd
 fi
 
+if [[ $1 = "travis" ]]; then
+
 vim -Nu <(cat << VIMRC
 filetype off
 set rtp+=.
 set rtp+=test/vader
 filetype plugin indent on
 VIMRC) -c 'Vader! test/*.vader' > /dev/null
+
+else
+
+vim -Nu <(cat << VIMRC
+filetype off
+set rtp=.
+set rtp+=test/vader
+filetype plugin indent on
+VIMRC) -c 'Vader! test/*.vader' > /dev/null
+
+fi
