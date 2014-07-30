@@ -97,13 +97,14 @@ function! s:GetLineFromFile(file, line)
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
-  new __EnMasse__
+  new! __EnMasse__
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
+  normal ggdG
   call setbufvar(bufnr(''), "enMasseList", a:list)
   call append(0, a:sourceLines)
-  normal dGgg
+  normal ddgg
   nmap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
   call enmasse#DisplayQuickfixEntryForCurrentLine()

@@ -1,0 +1,12 @@
+Execute (the line counts are correct):
+  silent grep! -i a test/grepable.txt
+  EnMasse
+  let before = line("$")
+  normal G
+  quit
+  silent grep! -i b test/grepable.txt
+  EnMasse
+  let after = line("$")
+
+  AssertEqual 5, before
+  AssertEqual 2, after
