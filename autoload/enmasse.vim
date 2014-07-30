@@ -97,7 +97,7 @@ function! s:GetLineFromFile(file, line)
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
-  new __EnMasse__
+  new! __EnMasse__
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
