@@ -1,0 +1,113 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>vim-enmasse</title>
+  <meta name="description" content="Edit every file in a quickfix list at the same time.">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">vim-enmasse</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Edit every file in a quickfix list at the same time.</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/Wolfy87/vim-enmasse/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/Wolfy87/vim-enmasse/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/Wolfy87/vim-enmasse" class="code">View vim-enmasse on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>
+<a name="en-masse--" class="anchor" href="#en-masse--"><span class="octicon octicon-link"></span></a>En Masse <a href="https://travis-ci.org/Wolfy87/vim-enmasse"><img src="https://travis-ci.org/Wolfy87/vim-enmasse.svg?branch=master" alt="Build Status"></a> <a href="https://waffle.io/wolfy87/vim-enmasse"><img src="https://badge.waffle.io/wolfy87/vim-enmasse.png?label=ready&amp;title=Ready" alt="Stories in Ready"></a>
+</h1>
+
+<p>Takes a quickfix list and makes it editable. You can then write each change back to their respective files using your favourite way of writing files, <code>:w</code> or <code>ZZ</code>, for example. Fix multiple <a href="https://github.com/walm/jshint.vim">JSHint</a> issues at once or perform a complex find and replace across your project all within the comfort of Vim.</p>
+
+<p><img src="https://raw.githubusercontent.com/Wolfy87/vim-enmasse/master/images/example.gif" alt="Animated demonstration"></p>
+
+<h2>
+<a name="using-the-plugin" class="anchor" href="#using-the-plugin"><span class="octicon octicon-link"></span></a>Using the plugin</h2>
+
+<p>As you can see in the demonstration above, all you have to do is populate a quickfix list in some way (I used <a href="https://github.com/walm/jshint.vim">JSHint</a>, but you could use <a href="https://github.com/rking/ag.vim">Ag</a>, for example), then execute <code>:EnMasse</code>. This will open a new buffer with each line corresponding to a line in the quickfix list.</p>
+
+<p>You can then edit each line in any way you want. When done just write this magical buffer and it will update each line in their corresponding files. For more information, check out <a href="https://github.com/Wolfy87/vim-enmasse/blob/master/doc/enmasse.txt">the documentation!</a></p>
+
+<h2>
+<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h2>
+
+<p>Tests are performed using <a href="https://github.com/junegunn/vader.vim">vader</a>, to pull the dependencies and run them simply execute <code>./tests/run</code>. The tests are automatically executed by <a href="https://travis-ci.org/Wolfy87/vim-enmasse">TravisCI</a> too, so keep an eye on that if you push changes or open a PR. The badge up the top of this README indicates the state of master, it should ALWAYS be green. A test should be written before any change is made.</p>
+
+<h2>
+<a name="author" class="anchor" href="#author"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p><a href="http://oli.me.uk/">Oliver Caldwell</a> / <a href="https://twitter.com/OliverCaldwell">@OliverCaldwell</a></p>
+
+<h2>
+<a name="unlicence" class="anchor" href="#unlicence"><span class="octicon octicon-link"></span></a>Unlicence</h2>
+
+<p>This is free and unencumbered software released into the public domain.</p>
+
+<p>Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.</p>
+
+<p>In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<p>For more information, please refer to <a href="http://unlicense.org/">http://unlicense.org/</a></p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/Wolfy87" class="avatar"><img src="https://avatars3.githubusercontent.com/u/315229?v=2&amp;s=60" width="48" height="48"></a> <a href="https://github.com/Wolfy87">Wolfy87</a> maintains <a href="https://github.com/Wolfy87/vim-enmasse">vim-enmasse</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/Wolfy87/vim-enmasse/tarball/master" class="tar">tar</a><a href="https://github.com/Wolfy87/vim-enmasse/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
