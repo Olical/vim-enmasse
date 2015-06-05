@@ -1,5 +1,7 @@
 # En Masse [![Build Status][travis-image]][travis] [![Stories in Ready][waffle-image]][waffle]
 
+[![Join the chat at https://gitter.im/Wolfy87/vim-enmasse](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wolfy87/vim-enmasse?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Takes a quickfix list and makes it editable. You can then write each change back to their respective files using your favourite way of writing files, `:w` or `ZZ`, for example. Fix multiple [JSHint][] issues at once or perform a complex find and replace across your project all within the comfort of Vim.
 
 ![Animated demonstration](./images/example.gif)
