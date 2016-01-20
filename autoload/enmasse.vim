@@ -47,12 +47,14 @@ function! s:GetQuickfixList()
   let uniqueList = []
 
   for item in list
-    let existingItem = s:GetMatchingLineFromQuickfix(item, uniqueList)
+    if item.valid
+      let existingItem = s:GetMatchingLineFromQuickfix(item, uniqueList)
 
-    if has_key(existingItem, "bufnr")
-      let existingItem.text = join([existingItem.text, item.text], " | ")
-    else
-      call add(uniqueList, item)
+      if has_key(existingItem, "bufnr")
+        let existingItem.text = join([existingItem.text, item.text], " | ")
+      else
+        call add(uniqueList, item)
+      endif
     endif
   endfor
 
