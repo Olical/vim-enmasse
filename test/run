@@ -13,4 +13,5 @@ filetype off
 set rtp=.
 set rtp+=test/vader
 filetype plugin indent on
-VIMRC) -c 'Vader! test/*.vader' > /dev/null
+VIMRC
+) -c 'Vader! test/*.vader' > /dev/null
