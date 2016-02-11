@@ -32,7 +32,7 @@ endfunction
 function! s:EchoTruncated(msg)
   let saved=&shortmess
   set shortmess+=T
-  exe "norm :echomsg a:msg\n"
+  exec "echomsg a:msg"
   let &shortmess=saved
 endfunction
 
