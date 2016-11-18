@@ -97,17 +97,21 @@ function! s:GetLineFromFile(file, line)
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
-  new! __EnMasse__
+  noautocmd keepalt botright new! __EnMasse__
+  setlocal stl=\ EnMasse
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
-  normal ggdG
+  setlocal nobuflisted
+  normal! gg"_dG
   call setbufvar(bufnr(''), "enMasseList", a:list)
   call append(0, a:sourceLines)
-  normal ddgg
-  nmap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
+  normal! "_ddgg
+  nnoremap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
-  call enmasse#DisplayQuickfixEntryForCurrentLine()
+  if line('$') < winheight(winnr())
+      execute 'resize' line('$')
+  end
 endfunction
 
 function! s:OpenLineInPreviewWindow()
