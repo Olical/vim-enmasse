@@ -101,10 +101,10 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
-  normal ggdG
+  normal gg"_dG
   call setbufvar(bufnr(''), "enMasseList", a:list)
   call append(0, a:sourceLines)
-  normal ddgg
+  normal "_ddgg
   nmap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
   call enmasse#DisplayQuickfixEntryForCurrentLine()
