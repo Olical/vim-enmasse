@@ -107,7 +107,6 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   normal! "_ddgg
   nnoremap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
-  call enmasse#DisplayQuickfixEntryForCurrentLine()
 endfunction
 
 function! s:OpenLineInPreviewWindow()
