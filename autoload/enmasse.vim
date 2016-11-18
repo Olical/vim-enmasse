@@ -98,6 +98,7 @@ endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
   noautocmd keepalt botright new! __EnMasse__
+  setlocal stl=\ EnMasse
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
