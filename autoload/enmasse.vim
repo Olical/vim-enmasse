@@ -107,6 +107,9 @@ function! s:CreateEnMasseBuffer(list, sourceLines)
   normal! "_ddgg
   nnoremap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
+  if line('$') < winheight(winnr())
+      execute 'resize' line('$')
+  end
 endfunction
 
 function! s:OpenLineInPreviewWindow()
