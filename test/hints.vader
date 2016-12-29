@@ -2,16 +2,6 @@ Before (read the example grepable file and grep for quickfix):
   let lines = readfile("test/grepable.txt", "b")
   silent grep! quickfix test/grepable.txt
 
-Execute (a hint is displayed for the first line on open):
-  redir => messages
-  EnMasse
-  redir END
-
-  quit
-  let result = get(split(messages, "\n"), -1, "")
-
-  AssertEqual lines[1], result
-
 Execute (when the cursor is moved, the hint updates):
   EnMasse
   normal j
@@ -28,9 +18,11 @@ Execute (when the cursor is moved, the hint updates):
 Execute (when lines have been joined, the hint contains both of the results seperated with a pipe):
   silent grep! "Dupe!" test/grepable.txt
   silent grepadd! "Dupe!" test/grepable.txt
+  EnMasse
+  normal jk
 
   redir => messages
-  EnMasse
+  doautocmd CursorMoved
   redir END
 
   quit

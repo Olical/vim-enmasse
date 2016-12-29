@@ -97,17 +97,21 @@ function! s:GetLineFromFile(file, line)
 endfunction
 
 function! s:CreateEnMasseBuffer(list, sourceLines)
-  new! __EnMasse__
+  noautocmd keepalt botright new! __EnMasse__
+  setlocal stl=\ EnMasse
   setlocal buftype=acwrite
   setlocal bufhidden=hide
   setlocal noswapfile
-  normal ggdG
+  setlocal nobuflisted
+  normal! gg"_dG
   call setbufvar(bufnr(''), "enMasseList", a:list)
   call append(0, a:sourceLines)
-  normal ddgg
-  nmap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
+  normal! "_ddgg
+  nnoremap <silent><buffer> <CR> :call <SID>OpenLineInPreviewWindow()<CR>
   set nomodified
-  call enmasse#DisplayQuickfixEntryForCurrentLine()
+  if line('$') < winheight(winnr())
+      execute 'resize' line('$')
+  end
 endfunction
 
 function! s:OpenLineInPreviewWindow()
@@ -128,14 +132,20 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
 
   for [filePath, fileChanges] in items(toWrite)
     let lines = readfile(filePath, "b")
+    let changed = 0
 
     for lineChange in fileChanges
-      let lines[lineChange.line] = lineChange.change
+      if lines[lineChange.line] != lineChange.change
+        let lines[lineChange.line] = lineChange.change
+        let changed = 1
+      endif
     endfor
 
-    execute "silent doautocmd FileWritePre " . filePath
-    call writefile(lines, filePath, "b")
-    execute "silent doautocmd FileWritePost " . filePath
+    if changed
+      execute "silent doautocmd FileWritePre " . filePath
+      call writefile(lines, filePath, "b")
+      execute "silent doautocmd FileWritePost " . filePath
+    endif
   endfor
 
   set nomodified
