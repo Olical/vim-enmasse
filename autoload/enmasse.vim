@@ -132,14 +132,20 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
 
   for [filePath, fileChanges] in items(toWrite)
     let lines = readfile(filePath, "b")
+    let changed = 0
 
     for lineChange in fileChanges
-      let lines[lineChange.line] = lineChange.change
+      if lines[lineChange.line] != lineChange.change
+        let lines[lineChange.line] = lineChange.change
+        let changed = 1
+      endif
     endfor
 
-    execute "silent doautocmd FileWritePre " . filePath
-    call writefile(lines, filePath, "b")
-    execute "silent doautocmd FileWritePost " . filePath
+    if changed
+      execute "silent doautocmd FileWritePre " . filePath
+      call writefile(lines, filePath, "b")
+      execute "silent doautocmd FileWritePost " . filePath
+    endif
   endfor
 
   set nomodified
