@@ -46,7 +46,6 @@ Execute (doesn't write if no lines have changed):
 
 Execute (changing a file that you have open will prompt for a reload):
   execute "split " . filePath
-  execute "normal! \<C-W>k"
   %s/is EnMasse/is EnMasse, a Vim plugin/
   %s/useful/handy/
   write
