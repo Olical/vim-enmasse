@@ -12,6 +12,31 @@ As you can see in the demonstration above, all you have to do is populate a quic
 
 You can then edit each line in any way you want. When done just write this magical buffer and it will update each line in their corresponding files. For more information, check out [the documentation!][docs]
 
+## Installation
+
+### [vim-plug](https://github.com/junegunn/vim-plug#readme)
+
+add this line to `.vimrc`
+
+```
+Plug 'Olical/vim-enmasse'
+```
+
+### [vim-pathogen](https://github.com/tpope/vim-pathogen#readme)
+
+```
+cd ~/.vim/bundle
+git clone https://github.com/Olical/vim-enmasse
+```
+
+### [Vundle.vim](https://github.com/gmarik/Vundle.vim#readme)
+
+add this line to `.vimrc`
+
+```
+Plugin 'Olical/vim-enmasse'
+```
+
 ## Tests
 
 Tests are performed using [vader][], to pull the dependencies and run them simply execute `./tests/run`. The tests are automatically executed by [TravisCI][travis] too, so keep an eye on that if you push changes or open a PR. The badge up the top of this README indicates the state of master, it should ALWAYS be green. A test should be written before any change is made.
