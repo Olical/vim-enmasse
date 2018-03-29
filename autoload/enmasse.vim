@@ -135,7 +135,7 @@ function! s:WriteSourceLinesAgainstList(list, sourceLines)
     let changed = 0
 
     for lineChange in fileChanges
-      if lines[lineChange.line] != lineChange.change
+      if lines[lineChange.line] !=# lineChange.change
         let lines[lineChange.line] = lineChange.change
         let changed = 1
       endif
