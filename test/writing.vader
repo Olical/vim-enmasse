@@ -1,6 +1,6 @@
 Before (define test data and setup EnMasse):
-  let original = ["Hello, World!", "This is EnMasse.", "EnMasse is useful."]
-  let expected = ["Hello, World!", "This is EnMasse, a Vim plugin.", "EnMasse is handy."]
+  let original = ["EnMasse is cOoL", "Hello, World!", "This is EnMasse.", "EnMasse is useful."]
+  let expected = ["EnMasse is Cool", "Hello, World!", "This is EnMasse, a Vim plugin.", "EnMasse is handy."]
   let filePath = tempname()
   set nomodified
   call writefile(original, filePath)
@@ -14,7 +14,10 @@ After (remove the temporary file and close the previous EnMasse buffer):
 Execute (editing and writing in an EnMasse buffer changes the file):
   %s/is EnMasse/is EnMasse, a Vim plugin/
   %s/useful/handy/
+  %s/cOoL/Cool/
+  set ignorecase
   write
+  set noignorecase
   let actual = readfile(filePath)
   AssertEqual expected, actual
 
